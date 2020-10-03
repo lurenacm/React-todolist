@@ -8,18 +8,19 @@ class Todolist extends Component {
             inputVal : '',
             list: []
         }
+        this.deleteList= this.deleteList.bind(this)
+        this.chang= this.chang.bind(this)
     }
     render() {
         return (
         <div>
-            <input value={this.state.inputVal} onChange={this.chang.bind(this)}/>
+            <input value={this.state.inputVal} onChange={this.chang}/>
             <button onClick={this.pushList.bind(this, this.state.inputVal)}>提交</button>
             <ul>
                 {
                     this.state.list.map( (item, index) => {
                         return (
-                            <TodoItem  item={item}  index={index} deleteItem={this.deleteList.bind(this)}/>
-                            // <li onClick={this.deleteList.bind(this, index)} key={index}>{item}</li>
+                            <TodoItem  item={item} key={index}  index={index} deleteItem={this.deleteList}/>
                         )
                     })
                 }
@@ -29,9 +30,13 @@ class Todolist extends Component {
     }
 
     chang(e) {
-        this.setState({
-            inputVal : e.target.value
-        })
+        // this.setState({
+        //     inputVal : e.target.value
+        // })
+        const value =e.target.value
+        this.setState( () => ({
+            inputVal: value
+        }))
     }
     pushList(val) {
         this.setState({
@@ -40,11 +45,17 @@ class Todolist extends Component {
         })
     }
     deleteList(index) {
-        const list = [...this.state.list]
-        list.splice(index, 1)
-        this.setState({
-            list:list
+        // 异步赋值
+        this.setState((preState) => {
+            const list = [...preState.list]
+            list.splice(index, 1)
+            return {list}
         })
+        // const list = [...this.state.list]
+        // list.splice(index, 1)
+        // this.setState({
+        //     list:list
+        // })
     }
 }
 
