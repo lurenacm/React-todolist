@@ -6,6 +6,16 @@ class todoItem extends Component {
         super(props)
         this.deleteItem = this.deleteItem.bind(this)
     }
+
+    // 利用生命周期周期函数判断是否需要更新子组件，父组件生命周期render() 发生变化子组件的render函数也会重新渲染。shouldComponentUpdate() 可以判断是否需要更新组件
+    shouldComponentUpdate(nextProp, nextState) {
+        if (nextProp.item !== this.props.item) {
+            return true
+        } else {
+            return false
+        }
+    }
+
     render() {
         return (
             <div onClick={this.deleteItem} key={this.props.index}>{this.props.item}</div>
@@ -20,7 +30,7 @@ class todoItem extends Component {
 
 // prop 类型校验
 todoItem.propTypes = {
-    item: PropTypes.arrayOf(PropTypes.string, PropTypes.number),
+    item: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     index: PropTypes.number
 }
 

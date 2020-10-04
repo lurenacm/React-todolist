@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import axios from 'axios'
 import TodoItem from './todoItem';
 
 class Todolist extends Component {
@@ -6,14 +7,19 @@ class Todolist extends Component {
         super(props)
         this.state = {
             inputVal : '',
-            list: []
+            list: [],
+            spanVal: 'hello world'
         }
         this.deleteList= this.deleteList.bind(this)
         this.chang= this.chang.bind(this)
     }
+
     render() {
         return (
         <div>
+            <div>
+                <span>{this.state.spanVal}</span>
+            </div>
             <input value={this.state.inputVal} onChange={this.chang}/>
             <button onClick={this.pushList.bind(this, this.state.inputVal)}>提交</button>
             <ul>
@@ -27,6 +33,14 @@ class Todolist extends Component {
             </ul>
         </div>
         )
+    }
+
+    componentDidMount() {
+        axios.get("http://localhost:3000/src/mock.json").then( (res) => {
+            console.log(res)
+        }).catch( (e) => {
+            console.log(e)
+        })
     }
 
     chang(e) {
