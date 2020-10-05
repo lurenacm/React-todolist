@@ -2,7 +2,7 @@ import React, { Component, Fragment } from 'react'
 import 'antd/dist/antd.css'
 import { Input, Button, List } from 'antd'
 import store from './store/index'
-import {CHANG_VALUE, SUBMIT, ON_DELETE_ITEM} from "./store/actionType"
+import { getChangValue, getSubmit, getOnDeleteItem } from "./store/actionCreator"
 
 class AntdTodoList extends Component {
     constructor(props) {
@@ -35,25 +35,17 @@ class AntdTodoList extends Component {
     }
 
     chang(e) {
-        const action = {
-            type: CHANG_VALUE,
-            value: e.target.value
-        }
+       const action = getChangValue(e.target.value)
         store.dispatch(action)
     }
 
     submit() {
-        const action = {
-            type: SUBMIT
-        }
+        const action = getSubmit()
         store.dispatch(action)
     }
 
     onDeleteItem(index) {
-        const action = {
-            type: ON_DELETE_ITEM,
-            index
-        }
+        const action = getOnDeleteItem(index)
         store.dispatch(action)
     }
 
