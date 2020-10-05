@@ -1,7 +1,8 @@
 import React, { Component, Fragment } from 'react'
-import store from './store/index'
 import 'antd/dist/antd.css'
-import { Input, Button, List } from 'antd' 
+import { Input, Button, List } from 'antd'
+import store from './store/index'
+import {CHANG_VALUE, SUBMIT, ON_DELETE_ITEM} from "./store/actionType"
 
 class AntdTodoList extends Component {
     constructor(props) {
@@ -19,14 +20,14 @@ class AntdTodoList extends Component {
         return (
             <Fragment>
                 <div style={{marginTop: "20px", marginLeft: "100px"}}>
-                    <Input placeholder="Basic usage" style={{width: "300px", marginRight: "10px"}} onChange={this.chang} />
+                    <Input placeholder="Basic usage" style={{width: "300px", marginRight: "10px"}} onChange={this.chang} value={this.state.inputValue} />
                     <Button type="primary" onClick={this.submit}>提交</Button>
                     <List
                         style={{ marginTop:"20px", width: "400px"}}
                         size="small"
                         bordered
                         dataSource={this.state.dataList}
-                        renderItem={item => <List.Item>{item}</List.Item>}
+                        renderItem={(item, index) => <List.Item onClick={this.onDeleteItem.bind(this, index)}>{item}</List.Item>}
                         />
                 </div>
             </Fragment>
@@ -35,7 +36,7 @@ class AntdTodoList extends Component {
 
     chang(e) {
         const action = {
-            type: 'changValue',
+            type: CHANG_VALUE,
             value: e.target.value
         }
         store.dispatch(action)
@@ -43,7 +44,15 @@ class AntdTodoList extends Component {
 
     submit() {
         const action = {
-            type: 'SUBMIT'
+            type: SUBMIT
+        }
+        store.dispatch(action)
+    }
+
+    onDeleteItem(index) {
+        const action = {
+            type: ON_DELETE_ITEM,
+            index
         }
         store.dispatch(action)
     }
