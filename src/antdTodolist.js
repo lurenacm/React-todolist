@@ -7,9 +7,11 @@ class AntdTodoList extends Component {
     constructor(props) {
         super(props)
         this.chang = this.chang.bind(this)
-        this.listenerChangInput = this.listenerChangInput.bind(this)
+        this.listenerFunc = this.listenerFunc.bind(this)
+        this.submit = this.submit.bind(this)
+
         this.state = store.getState()
-        store.subscribe(this.listenerChangInput)
+        store.subscribe(this.listenerFunc)
         // console.log(this.state)
     }
 
@@ -18,7 +20,7 @@ class AntdTodoList extends Component {
             <Fragment>
                 <div style={{marginTop: "20px", marginLeft: "100px"}}>
                     <Input placeholder="Basic usage" style={{width: "300px", marginRight: "10px"}} onChange={this.chang} />
-                    <Button type="primary">提交</Button>
+                    <Button type="primary" onClick={this.submit}>提交</Button>
                     <List
                         style={{ marginTop:"20px", width: "400px"}}
                         size="small"
@@ -39,7 +41,14 @@ class AntdTodoList extends Component {
         store.dispatch(action)
     }
 
-    listenerChangInput() {
+    submit() {
+        const action = {
+            type: 'SUBMIT'
+        }
+        store.dispatch(action)
+    }
+
+    listenerFunc() {
         this.setState(store.getState())
     }
 }

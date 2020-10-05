@@ -14,5 +14,10 @@ export default (state= defaultStore, action) => {
         newState.inputValue = action.value
         return newState
     }
+    if (action.type === 'SUBMIT') {
+        const newState = JSON.parse(JSON.stringify(state))
+        newState.dataList.push(newState.inputValue)
+        return newState
+    }
     return state
 }
