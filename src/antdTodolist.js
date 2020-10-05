@@ -6,15 +6,18 @@ import { Input, Button, List } from 'antd'
 class AntdTodoList extends Component {
     constructor(props) {
         super(props)
+        this.chang = this.chang.bind(this)
+        this.listenerChangInput = this.listenerChangInput.bind(this)
         this.state = store.getState()
-        console.log(this.state)
+        store.subscribe(this.listenerChangInput)
+        // console.log(this.state)
     }
 
     render() {
         return (
             <Fragment>
-                <div style={{marginTop: "20px"}}>
-                    <Input placeholder="Basic usage" style={{width: "300px", marginRight: "10px"}} />
+                <div style={{marginTop: "20px", marginLeft: "100px"}}>
+                    <Input placeholder="Basic usage" style={{width: "300px", marginRight: "10px"}} onChange={this.chang} />
                     <Button type="primary">提交</Button>
                     <List
                         style={{ marginTop:"20px", width: "400px"}}
@@ -26,6 +29,18 @@ class AntdTodoList extends Component {
                 </div>
             </Fragment>
         )
+    }
+
+    chang(e) {
+        const action = {
+            type: 'changValue',
+            value: e.target.value
+        }
+        store.dispatch(action)
+    }
+
+    listenerChangInput() {
+        this.setState(store.getState())
     }
 }
 

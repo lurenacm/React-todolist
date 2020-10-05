@@ -1,5 +1,4 @@
 // 所有数据仓库
-
 const defaultStore = {
     inputValue: '123',
     dataList: [ 'Racing car sprays burning fuel into crowd.',
@@ -10,5 +9,10 @@ const defaultStore = {
 }
 
 export default (state= defaultStore, action) => {
+    if (action.type === 'changValue') {
+        const newState = JSON.parse(JSON.stringify(state))
+        newState.inputValue = action.value
+        return newState
+    }
     return state
 }
