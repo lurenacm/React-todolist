@@ -1,8 +1,8 @@
-import React, { Component, Fragment } from 'react'
+import React, { Component } from 'react'
 import 'antd/dist/antd.css'
-import { Input, Button, List } from 'antd'
 import store from './store/index'
 import { getChangValue, getSubmit, getOnDeleteItem } from "./store/actionCreator"
+import AntdTodoListUI from './antdTodolistUI'
 
 class AntdTodoList extends Component {
     constructor(props) {
@@ -10,7 +10,7 @@ class AntdTodoList extends Component {
         this.chang = this.chang.bind(this)
         this.listenerFunc = this.listenerFunc.bind(this)
         this.submit = this.submit.bind(this)
-
+        this.onDeleteItem = this.onDeleteItem.bind(this)
         this.state = store.getState()
         store.subscribe(this.listenerFunc)
         // console.log(this.state)
@@ -18,19 +18,7 @@ class AntdTodoList extends Component {
 
     render() {
         return (
-            <Fragment>
-                <div style={{marginTop: "20px", marginLeft: "100px"}}>
-                    <Input placeholder="Basic usage" style={{width: "300px", marginRight: "10px"}} onChange={this.chang} value={this.state.inputValue} />
-                    <Button type="primary" onClick={this.submit}>提交</Button>
-                    <List
-                        style={{ marginTop:"20px", width: "400px"}}
-                        size="small"
-                        bordered
-                        dataSource={this.state.dataList}
-                        renderItem={(item, index) => <List.Item onClick={this.onDeleteItem.bind(this, index)}>{item}</List.Item>}
-                        />
-                </div>
-            </Fragment>
+            <AntdTodoListUI inputValue={this.state.inputValue} chang={this.chang} submit={this.submit} dataList={this.state.dataList} onDeleteItem={this.onDeleteItem} />
         )
     }
 
