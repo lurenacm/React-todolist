@@ -1,5 +1,5 @@
 import { createStore, applyMiddleware, compose } from 'redux'
-import thunk from 'redux-thunk'
+import thunk from 'redux-thunk'       // 让action 可以写异步代码 异步请求
 import reducer from './reducer'
 
 
