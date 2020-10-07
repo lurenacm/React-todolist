@@ -1,26 +1,45 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { connect } from 'react-redux'
 
-class Todolist2 extends Component {
-    render() {
-       const { inputValue, list, changInput, submit }= this.props
-        return (
-            <div>
-                <input value={inputValue}  onChange={changInput}/>
-                <button onClick={submit}>提交</button>
-                <ul>
-                    {
-                         list.map( (item, index) => {
-                               return (
-                                <li key={index}>{item}</li>
-                               )
-                        })
-                    }
-                </ul>
-            </div>
-        )
-    }
+const Todolist2 = (props) => {
+            const { inputValue, list, changInput, submit }= props
+             return (
+                 <div>
+                     <input value={inputValue}  onChange={changInput}/>
+                     <button onClick={submit}>提交</button>
+                     <ul>
+                         {
+                              list.map( (item, index) => {
+                                    return (
+                                     <li key={index}>{item}</li>
+                                    )
+                             })
+                         }
+                     </ul>
+                 </div>
+             )
 }
+
+// class Todolist2 extends Component {
+//     render() {
+//        const { inputValue, list, changInput, submit }= this.props
+//         return (
+//             <div>
+//                 <input value={inputValue}  onChange={changInput}/>
+//                 <button onClick={submit}>提交</button>
+//                 <ul>
+//                     {
+//                          list.map( (item, index) => {
+//                                return (
+//                                 <li key={index}>{item}</li>
+//                                )
+//                         })
+//                     }
+//                 </ul>
+//             </div>
+//         )
+//     }
+// }
 
 const mapStateToProps = (state) => {
     return {
